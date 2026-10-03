@@ -154,6 +154,12 @@ analytics.page('Pricing');
 
 ## Relevant Skills
 
-- analytics-tracking
-- email-sequence
-- paid-ads
+- analytics
+- emails
+- ads
+
+### Profile identifiers in the CLI
+
+Pass the raw user ID to `profiles traits` or `profiles events`. The CLI URL-encodes
+the value so characters such as `/`, `+`, `?`, and `#` remain part of the user ID.
+Do not pre-encode it. See [Profile API identifiers](https://www.twilio.com/docs/segment/unify/profile-api).

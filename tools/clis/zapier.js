@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 
+const rawArgs = process.argv.slice(2)
 const API_KEY = process.env.ZAPIER_API_KEY
 const BASE_URL = 'https://api.zapier.com/v1'
 
-if (!API_KEY) {
+if ((!API_KEY) && rawArgs.length > 0) {
   console.error(JSON.stringify({ error: 'ZAPIER_API_KEY environment variable required' }))
   process.exit(1)
 }
@@ -65,7 +66,7 @@ function parseArgs(args) {
   return result
 }
 
-const args = parseArgs(process.argv.slice(2))
+const args = parseArgs(rawArgs)
 const [cmd, sub, ...rest] = args._
 
 async function main() {
@@ -122,7 +123,9 @@ async function main() {
     case 'hooks':
       switch (sub) {
         case 'send': {
+          // Sends a POST to a Zapier webhook catch hook URL (e.g. https://hooks.zapier.com/hooks/catch/...)
           if (!args.url) { result = { error: '--url required' }; break }
+          if (!args.url.startsWith('https://')) { result = { error: '--url must use https://' }; break }
           if (!args.data) { result = { error: '--data required (JSON string)' }; break }
           let data
           try {
