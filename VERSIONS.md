@@ -14,6 +14,7 @@ Current versions of all skills. Agents can compare against local versions to che
 | content-strategy | 1.2.0 | 2026-03-14 |
 | copy-editing | 1.2.0 | 2026-03-14 |
 | copywriting | 1.2.0 | 2026-03-14 |
+| eddie-voice | 1.0.0 | 2026-10-04 |
 | email-sequence | 1.2.0 | 2026-03-14 |
 | form-cro | 1.2.0 | 2026-03-14 |
 | free-tool-strategy | 1.2.0 | 2026-03-14 |
@@ -39,6 +40,9 @@ Current versions of all skills. Agents can compare against local versions to che
 | social-content | 1.2.0 | 2026-03-14 |
 
 ## Recent Changes
+
+### 2026-10-04
+- Added `eddie-voice` skill: personal tone, voice, and style guide (analytical-strategist register plus Google developer documentation style mechanics), with a brand-voice reference
 
 ### 2026-03-14
 - Added `lead-magnets` skill for lead magnet strategy, format selection, and conversion optimization

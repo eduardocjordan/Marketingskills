@@ -66,6 +66,7 @@ See each skill's **Related Skills** section for the full dependency map.
 | [copy-editing](skills/copy-editing/) | When the user wants to edit, review, or improve existing marketing copy, or refresh outdated content. Also use when the... |
 | [copywriting](skills/copywriting/) | When the user wants to write, rewrite, or improve marketing copy for any page — including homepage, landing pages,... |
 | [customer-research](skills/customer-research/) | When the user wants to conduct, analyze, or synthesize customer research. Use when the user mentions "customer... |
+| [eddie-voice](skills/eddie-voice/) | Eddie's tone, voice, and writing style for any text written in his name. Use when drafting or editing marketing copy,... |
 | [email-sequence](skills/email-sequence/) | When the user wants to create or optimize an email sequence, drip campaign, automated email flow, or lifecycle email... |
 | [form-cro](skills/form-cro/) | When the user wants to optimize any form that is NOT signup/registration — including lead capture forms, contact forms,... |
 | [free-tool-strategy](skills/free-tool-strategy/) | When the user wants to plan, evaluate, or build a free tool for marketing purposes — lead generation, SEO value, or... |
@@ -212,6 +213,7 @@ You can also invoke skills directly:
 ### Content & Copy
 - `copywriting` - Marketing page copy
 - `copy-editing` - Edit and polish existing copy
+- `eddie-voice` - Eddie's tone, voice, and style guide, applied to any copy
 - `cold-email` - B2B cold outreach emails and sequences
 - `email-sequence` - Automated email flows
 - `social-content` - Social media content
