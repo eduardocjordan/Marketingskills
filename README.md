@@ -87,6 +87,7 @@ See each skill's **Related Skills** section for the full dependency map.
 | [cro](skills/cro/) | When the user wants to optimize, improve, or increase conversions on any marketing page or form — including homepage,... |
 | [customer-research](skills/customer-research/) | When the user wants to conduct, analyze, or synthesize customer research. Use when the user mentions "customer... |
 | [directory-submissions](skills/directory-submissions/) | When the user wants to submit their product to startup, SaaS, AI, agent, MCP, no-code, or review directories for... |
+| [eddie-voice](skills/eddie-voice/) | Eddie's tone, voice, and writing style for any text written in his name. Use when drafting or editing marketing copy,... |
 | [emails](skills/emails/) | When the user wants to create or optimize an email sequence, drip campaign, automated email flow, or lifecycle email... |
 | [events](skills/events/) | When the user wants to plan, run, sponsor, speak at, or get pipeline from events — webinars, conferences, trade shows,... |
 | [free-tools](skills/free-tools/) | When the user wants to plan, evaluate, or build a free tool for marketing purposes — lead generation, SEO value, or... |
@@ -311,6 +312,7 @@ You can also invoke skills directly:
 ### Content & Copy
 - `copywriting` - Marketing page copy
 - `copy-editing` - Edit and polish existing copy
+- `eddie-voice` - Eddie's tone, voice, and style guide, applied to any copy
 - `cold-email` - B2B cold outreach emails and sequences
 - `emails` - Automated email flows
 - `social` - Social media content

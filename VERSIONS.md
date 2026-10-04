@@ -22,6 +22,7 @@ Current versions of all skills. Agents can compare against local versions to che
 | cro | 2.0.0 | 2026-05-05 |
 | customer-research | 2.0.4 | 2026-10-02 |
 | directory-submissions | 2.1.0 | 2026-10-02 |
+| eddie-voice | 1.0.0 | 2026-10-04 |
 | emails | 2.1.1 | 2026-10-02 |
 | events | 1.0.0 | 2026-08-23 |
 | free-tools | 2.0.1 | 2026-08-23 |
