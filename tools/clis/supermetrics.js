@@ -1,25 +1,27 @@
 #!/usr/bin/env node
 
+const rawArgs = process.argv.slice(2)
 const API_KEY = process.env.SUPERMETRICS_API_KEY
 const BASE_URL = 'https://api.supermetrics.com/enterprise/v2'
 
-if (!API_KEY) {
+if ((!API_KEY) && rawArgs.length > 0) {
   console.error(JSON.stringify({ error: 'SUPERMETRICS_API_KEY environment variable required' }))
   process.exit(1)
 }
 
 async function api(method, path, body) {
-  const separator = path.includes('?') ? '&' : '?'
-  const url = `${BASE_URL}${path}${separator}api_key=${API_KEY}`
+  const url = `${BASE_URL}${path}`
+  const headers = {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+    'x-api-key': API_KEY,
+  }
   if (args['dry-run']) {
-    return { _dry_run: true, method, url: url.replace(API_KEY, '***'), headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: body || undefined }
+    return { _dry_run: true, method, url, headers: { ...headers, 'x-api-key': '***' }, body: body || undefined }
   }
   const res = await fetch(url, {
     method,
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-    },
+    headers,
     body: body ? JSON.stringify(body) : undefined,
   })
   const text = await res.text()
@@ -50,7 +52,7 @@ function parseArgs(args) {
   return result
 }
 
-const args = parseArgs(process.argv.slice(2))
+const args = parseArgs(rawArgs)
 const [cmd, sub, ...rest] = args._
 
 async function main() {

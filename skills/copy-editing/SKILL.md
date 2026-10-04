@@ -1,8 +1,8 @@
 ---
 name: copy-editing
-description: "When the user wants to edit, review, or improve existing marketing copy, or refresh outdated content. Also use when the user mentions 'edit this copy,' 'review my copy,' 'copy feedback,' 'proofread,' 'polish this,' 'make this better,' 'copy sweep,' 'tighten this up,' 'this reads awkwardly,' 'clean up this text,' 'too wordy,' 'sharpen the messaging,' 'refresh this content,' 'update this page,' 'this content is outdated,' or 'content audit.' Use this when the user already has copy and wants it improved or refreshed rather than rewritten from scratch. For writing new copy, see copywriting."
+description: "When the user wants to edit, review, or improve existing marketing copy, or refresh outdated content. Also use when the user mentions 'edit this copy,' 'review my copy,' 'copy feedback,' 'proofread,' 'polish this,' 'make this better,' 'copy sweep,' 'tighten this up,' 'this reads awkwardly,' 'clean up this text,' 'too wordy,' 'sharpen the messaging,' 'refresh this content,' 'update this page,' 'this content is outdated,' or 'content audit,' 'this sounds like AI,' 'AI slop,' 'de-slop this,' or 'make it sound human.' Use this when the user already has copy and wants it improved or refreshed rather than rewritten from scratch. Every edit removes AI tells such as 'it's not X, it's Y' reveals, 'no X, no Y, no Z' lists, and sentences that trail into extra comma clauses. For writing new copy, see copywriting."
 metadata:
-  version: 1.3.0
+  version: 2.1.0
 ---
 
 # Copy Editing
@@ -12,9 +12,9 @@ You are an expert copy editor specializing in marketing and conversion copy. You
 ## Core Philosophy
 
 **Check for product marketing context first:**
-If `.agents/product-marketing-context.md` exists (or `.claude/product-marketing-context.md` in older setups), read it before editing. Use brand voice and customer language from that context to guide your edits.
+If `.agents/product-marketing.md` exists (or `.claude/product-marketing.md`, or the legacy `product-marketing-context.md` filename, in older setups), read it before editing. Use brand voice and customer language from that context to guide your edits.
 
-Good copy editing isn't about rewriting—it's about enhancing. Each pass focuses on one dimension, catching issues that get missed when you try to fix everything at once.
+Good copy editing improves what's already there. Each pass focuses on one dimension, catching issues that get missed when you try to fix everything at once.
 
 **Key principles:**
 - Don't change the core message; focus on enhancing it
@@ -328,10 +328,14 @@ Use these for faster reviews when a full seven-sweep process isn't needed.
 | Implement | Set up |
 | Leverage | Use |
 | Facilitate | Help |
-| Innovative | New |
-| Robust | Strong |
-| Seamless | Smooth |
-| Cutting-edge | New/Modern |
+
+**Replace with the fact** (a synonym swap just makes a new tell):
+
+| Vague | Write the fact instead |
+|-------|------------------------|
+| Innovative / cutting-edge | What it does that alternatives don't |
+| Robust | The uptime, scale, or failure case it handles |
+| Seamless | The real setup step count or time |
 
 **Watch for:**
 - Adverbs (usually unnecessary)
@@ -354,63 +358,35 @@ Use these for faster reviews when a full seven-sweep process isn't needed.
 - Logical flow between paragraphs
 - White space for scannability
 
+### AI-Tell Check
+
+Run this on every edit, after the sweeps. A reader who spots an AI tell tends to doubt the claims around it. The shape of a sentence gives it away more than any word does.
+
+**Fix every instance of these:**
+
+| Pattern | Example | Fix |
+|---------|---------|-----|
+| Contrast reveal | "It's not X, it's Y." "Not because X. Because Y." | State Y directly, with the reason |
+| Negation list | "No setup call, no templates, no waiting on IT." | Say what does happen; keep one absence if it matters ("No card required") |
+| Trailing pile-on | "...the data you already have, no exports, no spreadsheets." / "..., ensuring nothing slips." | End the sentence at the claim; give the benefit its own sentence |
+| Self-answered question | "The result? 3x faster." | Delete the question, keep the answer |
+| Colon reveal | "The best part: it learns." | Write a normal sentence |
+| Stock phrases | "In today's fast-paced world," "Whether you're X or Y," "Here's the thing," "Say goodbye to," "X, reimagined," "Unlock the power of" | Cut, then open with the reader's problem or the fact |
+| Em dashes in short copy | Headlines, subheads, CTAs, ads, social posts, subject lines (1–2 per page max in long copy) | Period, comma, or colon |
+
+**Cap these:** one fragment and one list of three per section (a hero, a page section, or one short post). Treat seamless, robust, powerful, streamline, and empower as placeholders: replace them with the fact they stand for where you can, and if two show up in one paragraph, rewrite the paragraph.
+
+**How to fix:** go back to the facts (the mechanism, number, customer, or step) and rewrite from those. Swapping in synonyms creates new tells. If the fact isn't available, mark `[NEED: ...]` instead of inventing one. Keep the brand's register. A formal sentence that makes a specific claim is fine.
+
+**Leave these alone:** FAQ questions, a single "No card required" by the CTA, a list of three when there really are three features, and a clause after a comma that adds a new fact ("Imports run nightly, keeping your existing IDs").
+
+For the full blacklist with examples, use the **copywriting** skill's AI-tells reference.
+
 ---
 
 ## Copy Editing Checklist
 
-### Before You Start
-- [ ] Understand the goal of this copy
-- [ ] Know the target audience
-- [ ] Identify the desired action
-- [ ] Read through once without editing
-
-### Clarity (Sweep 1)
-- [ ] Every sentence is immediately understandable
-- [ ] No jargon without explanation
-- [ ] Pronouns have clear references
-- [ ] No sentences trying to do too much
-
-### Voice & Tone (Sweep 2)
-- [ ] Consistent formality level throughout
-- [ ] Brand personality maintained
-- [ ] No jarring shifts in mood
-- [ ] Reads well aloud
-
-### So What (Sweep 3)
-- [ ] Every feature connects to a benefit
-- [ ] Claims answer "why should I care?"
-- [ ] Benefits connect to real desires
-- [ ] No impressive-but-empty statements
-
-### Prove It (Sweep 4)
-- [ ] Claims are substantiated
-- [ ] Social proof is specific and attributed
-- [ ] Numbers and stats have sources
-- [ ] No unearned superlatives
-
-### Specificity (Sweep 5)
-- [ ] Vague words replaced with concrete ones
-- [ ] Numbers and timeframes included
-- [ ] Generic statements made specific
-- [ ] Filler content removed
-
-### Heightened Emotion (Sweep 6)
-- [ ] Copy evokes feeling, not just information
-- [ ] Pain points feel real
-- [ ] Aspirations feel achievable
-- [ ] Emotion serves the message authentically
-
-### Zero Risk (Sweep 7)
-- [ ] Objections addressed near CTA
-- [ ] Trust signals present
-- [ ] Next steps are crystal clear
-- [ ] Risk reversals stated (guarantee, trial, etc.)
-
-### Final Checks
-- [ ] No typos or grammatical errors
-- [ ] Consistent formatting
-- [ ] Links work (if applicable)
-- [ ] Core message preserved through all edits
+For a final QA pass before delivering edits, work through the full checklist in [references/checklist.md](references/checklist.md) — covering all seven sweeps plus pre-start and final-check items.
 
 ---
 
@@ -444,6 +420,10 @@ Use these for faster reviews when a full seven-sweep process isn't needed.
 **Symptom:** Copy tries to speak to everyone, resonates with no one
 **Fix:** Pick one audience and write directly to them
 
+### Problem: Reads as AI-Written
+**Symptom:** "Not X. Y." reveals, "no X, no Y, no Z" lists, long sentences trailing extra clauses, stock openers
+**Fix:** Run the AI-Tell Check above and rewrite those sentences from the underlying facts
+
 ### Problem: Feature Overload
 **Symptom:** Listing every capability, overwhelming the reader
 **Fix:** Focus on 3-5 key benefits that matter most to the audience
@@ -468,6 +448,7 @@ This iterative process ensures each edit doesn't create new problems while respe
 
 - [Plain English Alternatives](references/plain-english-alternatives.md): Replace complex words with simpler alternatives
 - [Content Refresh](references/content-refresh.md): Full checklist, refresh vs. rewrite matrix, and cadence guide
+- [Copy Editing Checklist](references/checklist.md): Full QA checklist across all seven sweeps plus the AI-tell check
 
 ---
 
@@ -492,9 +473,9 @@ Copy editing isn't just for new content. Existing pages decay over time — outd
 ## Related Skills
 
 - **copywriting**: For writing new copy from scratch (use this skill to edit after your first draft is complete)
-- **page-cro**: For broader page optimization beyond copy
+- **cro**: For broader page optimization beyond copy
 - **marketing-psychology**: For understanding why certain edits improve conversion
-- **ab-test-setup**: For testing copy variations
+- **ab-testing**: For testing copy variations
 
 ---
 
@@ -505,4 +486,4 @@ Copy editing isn't just for new content. Existing pages decay over time — outd
 | Writing new page copy from scratch | copywriting |
 | Reviewing and improving existing copy | copy-editing (this skill) |
 | Editing copy you just wrote | copy-editing (this skill) |
-| Structural or strategic page changes | page-cro |
+| Structural or strategic page changes | cro |

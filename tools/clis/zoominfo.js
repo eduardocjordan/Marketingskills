@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 
+const rawArgs = process.argv.slice(2)
 const BASE_URL = 'https://api.zoominfo.com'
 
 let ACCESS_TOKEN = process.env.ZOOMINFO_ACCESS_TOKEN
 
-if (!ACCESS_TOKEN && !process.env.ZOOMINFO_USERNAME) {
+if ((!ACCESS_TOKEN && !process.env.ZOOMINFO_USERNAME) && rawArgs.length > 0) {
   console.error(JSON.stringify({ error: 'ZOOMINFO_ACCESS_TOKEN or ZOOMINFO_USERNAME + ZOOMINFO_PRIVATE_KEY environment variables required' }))
   process.exit(1)
 }
@@ -77,7 +78,7 @@ function parseArgs(args) {
   return result
 }
 
-const args = parseArgs(process.argv.slice(2))
+const args = parseArgs(rawArgs)
 const [cmd, sub, ...rest] = args._
 
 async function main() {
@@ -92,7 +93,14 @@ async function main() {
         break
       }
       const token = await authenticate()
-      result = { jwt: token }
+      if (args['show-token']) {
+        result = { jwt: token }
+      } else {
+        const masked = token.length > 12
+          ? token.slice(0, 6) + '…' + token.slice(-6)
+          : '***'
+        result = { jwt: masked, hint: 'Use --show-token to reveal full JWT' }
+      }
       break
     }
 
@@ -188,7 +196,7 @@ async function main() {
       result = {
         error: 'Unknown command',
         usage: {
-          auth: 'auth — authenticate and get JWT token',
+          auth: 'auth [--show-token] — authenticate and get JWT token (masked by default)',
           contacts: {
             search: 'contacts search [--job-title <t>] [--company <c>] [--location <l>] [--seniority <s>] [--department <d>] [--page <n>]',
             enrich: 'contacts enrich --email <email> | --person-id <id>',

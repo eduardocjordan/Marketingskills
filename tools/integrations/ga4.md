@@ -13,9 +13,12 @@ Web analytics platform for tracking user behavior, conversions, and marketing pe
 
 ## Authentication
 
-- **Type**: OAuth 2.0 or Service Account
+- **Data/Admin APIs**: OAuth 2.0 or Service Account
 - **Scopes**: `https://www.googleapis.com/auth/analytics.readonly` (read), `https://www.googleapis.com/auth/analytics.edit` (write)
 - **Setup**: Create credentials in Google Cloud Console
+- **Measurement Protocol**: Authenticate with a stream API secret and measurement ID,
+  independently of OAuth. The CLI `events send` command requires `--api-secret`,
+  `--measurement-id`, and `--client-id`; it does not require `GA4_ACCESS_TOKEN`.
 
 ## Common Agent Operations
 
@@ -120,7 +123,7 @@ POST https://www.google-analytics.com/mp/collect?measurement_id={measurement_id}
 
 ## Relevant Skills
 
-- analytics-tracking
-- ab-test-setup
+- analytics
+- ab-testing
 - seo-audit
-- page-cro
+- cro

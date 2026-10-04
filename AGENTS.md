@@ -21,7 +21,7 @@ marketingskills/
 │   └── skill-name/
 │       └── SKILL.md       # Required skill file
 ├── tools/
-│   ├── clis/              # Zero-dependency Node.js CLI tools (51 tools)
+│   ├── clis/              # Zero-dependency Node.js CLI tools (64 tools)
 │   ├── composio/          # Composio integration layer (quick start + toolkit mapping)
 │   ├── integrations/      # API integration guides per tool
 │   └── REGISTRY.md        # Tool index with capabilities
@@ -43,7 +43,32 @@ marketingskills/
 node --check tools/clis/<name>.js   # Syntax check
 node tools/clis/<name>.js           # Show usage (no args = help)
 node tools/clis/<name>.js <cmd> --dry-run  # Preview request without sending
+node --test tests/clis/*.test.cjs   # Contract tests (mocked fetch, no live calls)
 ```
+
+## Versioning
+
+Two version layers, with different rules:
+
+**Repo release version** — `.claude-plugin/plugin.json` `version`, `.claude-plugin/marketplace.json` `metadata.version`, and the `VERSIONS.md` changelog headings all share one x.y.z number:
+
+- **x** — repo-wide changes (restructures, spec changes, breaking changes)
+- **y** — new skill(s) added
+- **z** — updates to existing skills
+
+Do not bump y for content added to an existing skill, no matter how substantial — that's a z release (e.g. a new reference file in ad-creative is 2.8.0 → 2.8.1, not 2.9.0).
+
+**Per-skill version** — `metadata.version` in each SKILL.md, mirrored in the `VERSIONS.md` table. Bump on ANY shipped change to that skill: the update check compares `VERSIONS.md` against users' local skill metadata, so an unbumped change is invisible to installed users. Minor for new capability or description triggers, patch for fixes and clarifications.
+
+Bump the repo release version in the same PR that ships the change (2.7.0 and 2.8.0 shipped without touching plugin.json/marketplace.json and needed a catch-up later).
+
+CI enforces both layers on PRs. Fetch first so `origin/main` is current, then run it locally before pushing:
+
+```bash
+node scripts/check-versions.mjs --base origin/main
+```
+
+It fails if a changed skill didn't bump `metadata.version`, if `VERSIONS.md` disagrees with any SKILL.md, if the repo version didn't bump (or has no `### x.y.z` block), or if a file in `references/` isn't linked from anywhere in its skill. Changes only under a skill's `evals/` don't need a bump, since they don't change what installed users get.
 
 ## Agent Skills Specification
 
@@ -74,7 +99,7 @@ description: What this skill does and when to use it. Include trigger phrases.
 - No consecutive hyphens (`--`)
 - Must match parent directory name exactly
 
-**Valid**: `page-cro`, `email-sequence`, `ab-test-setup`
+**Valid**: `cro`, `emails`, `ab-testing`
 **Invalid**: `Page-CRO`, `-page`, `page--cro`
 
 ### Optional Skill Directories
@@ -124,7 +149,7 @@ The `description` is critical for skill discovery. Include:
 3. Related skills for scope boundaries
 
 ```yaml
-description: When the user wants to optimize conversions on any marketing page. Use when the user says "CRO," "conversion rate optimization," "this page isn't converting." For signup flows, see signup-flow-cro.
+description: When the user wants to optimize conversions on any marketing page. Use when the user says "CRO," "conversion rate optimization," "this page isn't converting." For signup flows, see signup.
 ```
 
 ## Claude Code Plugin
@@ -151,7 +176,7 @@ See [Claude Code plugins documentation](https://code.claude.com/docs/en/plugins.
 Follow the [Conventional Commits](https://www.conventionalcommits.org/) specification:
 
 - `feat: add skill-name skill`
-- `fix: improve clarity in page-cro`
+- `fix: improve clarity in cro`
 - `docs: update README`
 
 ### Pull Request Checklist
@@ -186,10 +211,10 @@ tools/
 ### When to Use Tools
 
 Skills reference relevant tools for implementation. For example:
-- `referral-program` skill → rewardful, tolt, dub-co, mention-me guides
-- `analytics-tracking` skill → ga4, mixpanel, segment guides
-- `email-sequence` skill → customer-io, mailchimp, resend guides
-- `paid-ads` skill → google-ads, meta-ads, linkedin-ads guides
+- `referrals` skill → rewardful, tolt, dub-co, mention-me guides
+- `analytics` skill → ga4, mixpanel, segment guides
+- `emails` skill → customer-io, mailchimp, resend guides
+- `ads` skill → google-ads, meta-ads, linkedin-ads guides
 
 For tools without native MCP servers (HubSpot, Salesforce, Meta Ads, LinkedIn Ads, Google Sheets, Slack, Notion), Composio provides MCP access via a single server. See `tools/integrations/composio.md` for setup and `tools/composio/marketing-tools.md` for the full toolkit mapping.
 
@@ -230,10 +255,10 @@ Claude Code supports embedding shell commands in SKILL.md using `` !`command` ``
 
 **Most useful application: auto-inject the product marketing context file**
 
-Instead of every skill telling the agent "go check if `.agents/product-marketing-context.md` exists and read it," you can inject it automatically:
+Instead of every skill telling the agent "go check if `.agents/product-marketing.md` exists and read it," you can inject it automatically:
 
 ```markdown
-Product context: !`cat .agents/product-marketing-context.md 2>/dev/null || echo "No product context file found — ask the user about their product before proceeding."`
+Product context: !`cat .agents/product-marketing.md 2>/dev/null || echo "No product context file found — ask the user about their product before proceeding."`
 ```
 
 Place this at the top of a skill's body (after frontmatter) to make context available immediately without any file-reading step.
